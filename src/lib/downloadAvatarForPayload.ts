@@ -10,7 +10,7 @@ export default async function downloadAvatarForPayload(
     let response = undefined,
         buf = undefined
 
-    for (let fmt in tryFmts) {
+    for (let fmt of tryFmts) {
         endpoint.searchParams.delete("format")
         if (fmt) endpoint.searchParams.append("format", fmt)
 
