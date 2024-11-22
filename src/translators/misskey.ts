@@ -30,7 +30,6 @@ export default translator({
             {
                 headers: {
                     Authorization: `Bearer ${apiKey}`,
-                    "Content-Type": "multipart/form-data",
                 },
                 body: fd,
                 method: "POST",
@@ -38,7 +37,7 @@ export default translator({
         )
 
         if (!newFileRequest.ok)
-            console.error(
+            throw new Error(
                 `misskey: creating new file, got ${newFileRequest.status}`
             )
 
