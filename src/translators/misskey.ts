@@ -33,6 +33,7 @@ export default translator({
                     "Content-Type": "multipart/form-data",
                 },
                 body: fd,
+                method: "POST",
             }
         )
 
@@ -49,6 +50,7 @@ export default translator({
             headers: {
                 Authorization: `Bearer ${apiKey}`,
                 "Content-Type": "application/json",
+                method: "POST",
             },
             body: JSON.stringify({ avatarId }),
         })
