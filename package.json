@@ -1,0 +1,26 @@
+{
+  "name": "avahooks",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "build": "vite build",
+    "genreadme": "node ./dist/readmeGenerator.js > ./README.md"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^22.9.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "hono": "^4.6.11",
+    "mime": "^4.0.4",
+    "zod": "^3.23.8"
+  }
+}
