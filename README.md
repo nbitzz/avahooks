@@ -14,6 +14,7 @@ All settings for endpoints are configured in query parameters.
 ### `/discord`
 
 - `token`: Discord token
+- `cookie`: Cookie header, b64-encoded
 
 ### `/misskey`
 

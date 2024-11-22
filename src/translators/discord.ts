@@ -2,8 +2,11 @@ import { z } from "zod"
 import { translator } from "../lib/types.js"
 import downloadAvatarForPayload from "../lib/downloadAvatarForPayload.js"
 export default translator({
-    query: z.object({ token: z.string().describe("Discord token") }),
-    async execute(payload, { token }) {
+    query: z.object({
+        token: z.string().describe("Discord token"),
+        cookie: z.string().describe(`Cookie header, b64-encoded`),
+    }),
+    async execute(payload, { token, cookie }) {
         let avatar = await downloadAvatarForPayload(payload, [
             "png",
             "jpeg",
@@ -30,15 +33,22 @@ export default translator({
                 "X-Super-Properties": Buffer.from(
                     JSON.stringify({
                         os: "Windows",
-                        browser: "Discord Client",
-                        os_arch: "x64",
+                        browser: "Chrome",
+                        device: "",
                         system_locale: "en-US",
-                        os_version: "10.0.22621",
+                        browser_user_agent: ua,
+                        browser_version,
+                        os_version: "10",
+                        referrer: "",
+                        referring_domain: "",
+                        referrer_current: "",
+                        referring_domain_current: "",
                         release_channel: "stable",
                         client_build_number,
                         client_event_source: null,
                     })
                 ).toString("base64"),
+                cookie: Buffer.from(cookie, "base64").toString(),
                 "X-Discord-Locale": "en-US",
                 "X-Discord-Timezone": "America/Los_Angeles",
                 "X-Debug-Options": "bugReporterEnabled",
