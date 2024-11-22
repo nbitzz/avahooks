@@ -20,7 +20,7 @@ export default translator({
         // copied from a firefox private browsing window
         // realistically this will probably need updates in the future
         // but for now this is good enough
-        await fetch("https://discord.com/api/v9/users/@me", {
+        let f = await fetch("https://discord.com/api/v9/users/@me", {
             headers: {
                 "User-Agent": ua,
                 Accept: "*/*",
@@ -66,5 +66,10 @@ export default translator({
             }),
             method: "PATCH",
         })
+
+        if (!f.ok)
+            throw new Error(
+                `discord: avatar set failed with ${f.status}: ${await f.text()}`
+            )
     },
 })
