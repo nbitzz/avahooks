@@ -51,7 +51,7 @@ export default translator({
     query: z.object({
         pds: z
             .string()
-            .default("https://bsky.app")
+            .default("https://bsky.social")
             .describe("Bluesky PDS. Include protocol."),
         identifier: z.string().describe("Bluesky handle"),
         password: z
