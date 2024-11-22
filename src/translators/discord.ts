@@ -56,8 +56,9 @@ export default translator({
                 "sec-ch-ua": `"Google Chrome";v="${browser_version_short}", "Chromium";v="${browser_version_short}", "Not=A?Brand";v="24"`,
                 "sec-ch-ua-mobile": "?0",
                 Priority: "u=0",
+                Referer: "https://discord.com/channels/@me/",
+                Origin: "https://discord.com",
             },
-            referrer: "https://discord.com/channels/@me/",
             body: JSON.stringify({
                 avatar: `data:${avatar.type};base64,${Buffer.from(
                     await avatar.arrayBuffer()
