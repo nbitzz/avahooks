@@ -64,7 +64,7 @@ export default translator({
 
         // login to bluesky
         const { accessJwt, did }: { accessJwt: string; did: string } =
-            await uaxrpc("POST", "/xrpc/com.atproto.server.createSession", {
+            await uaxrpc("POST", "com.atproto.server.createSession", {
                 identifier,
                 password,
             })
