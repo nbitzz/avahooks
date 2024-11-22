@@ -11,11 +11,6 @@ All settings for endpoints are configured in query parameters.
 - `identifier`: Bluesky handle
 - `password`: Bluesky password - create an app password in settings
 
-### `/discord`
-
-- `token`: Discord token
-- `cookie`: Cookie header, b64-encoded
-
 ### `/misskey`
 
 - `instance`: Link to your Misskey instance. Include protocol.
