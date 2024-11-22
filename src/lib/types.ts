@@ -15,7 +15,7 @@ export function translator<T extends AnyZodObject>(tl: Translator<T>) {
 const AvaMetadata = z.object({
     altText: z.string().optional(),
     source: z.string().optional(),
-    url: z.string(),
+    host: z.string(),
 })
 
 export const AvaRequest = z.discriminatedUnion("default", [

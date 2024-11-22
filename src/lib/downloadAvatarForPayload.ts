@@ -3,10 +3,10 @@ import { AvaRequest } from "./types.js"
 import mime from "mime"
 
 export default async function downloadAvatarForPayload(
-    { id, url }: z.infer<typeof AvaRequest>,
+    { id, host }: z.infer<typeof AvaRequest>,
     tryFmts: (string | undefined)[] = [undefined]
 ) {
-    let endpoint = new URL(`/avatars/${id}/image`, url)
+    let endpoint = new URL(`/avatars/${id}/image`, host)
     let response = undefined,
         buf = undefined
 
