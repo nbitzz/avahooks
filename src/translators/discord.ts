@@ -48,7 +48,7 @@ export default translator({
                         client_event_source: null,
                     })
                 ).toString("base64"),
-                cookie: Buffer.from(cookie, "base64").toString(),
+                cookie: Buffer.from(cookie, "base64url").toString(),
                 "X-Discord-Locale": "en-US",
                 "X-Discord-Timezone": "America/Los_Angeles",
                 "X-Debug-Options": "bugReporterEnabled",
