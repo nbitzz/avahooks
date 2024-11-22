@@ -14,7 +14,7 @@ export default translator({
 
         const browser_version = "113.0.5666.197",
             browser_version_short = browser_version.split(".")[1],
-            client_build_number = 347115, // todo: figure out how to get this?
+            client_build_number = "347115", // todo: figure out how to get this?
             ua = `Mozilla/5.0 (Windows NT 10.0; WOW64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${browser_version} Safari/537.36`
 
         // copied from a firefox private browsing window
@@ -30,16 +30,10 @@ export default translator({
                 "X-Super-Properties": Buffer.from(
                     JSON.stringify({
                         os: "Windows",
-                        browser: "Chrome",
-                        device: "",
+                        browser: "Discord Client",
+                        os_arch: "x64",
                         system_locale: "en-US",
-                        browser_user_agent: ua,
-                        browser_version,
-                        os_version: "10",
-                        referrer: "",
-                        referring_domain: "",
-                        referrer_current: "",
-                        referring_domain_current: "",
+                        os_version: "10.0.22621",
                         release_channel: "stable",
                         client_build_number,
                         client_event_source: null,
