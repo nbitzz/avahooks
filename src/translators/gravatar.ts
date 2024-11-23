@@ -72,15 +72,19 @@ export default translator({
                 `gravatar: upload failed with ${uploadResult.status}`
             )
 
-        const uprRes: { email_hash: string; image_id: string } =
-                await uploadResult.json(),
-            { image_id } = uprRes,
+        const uprRes: {
+                user: { email_hash: string }
+                image: { image_id: string }
+            } = await uploadResult.json(),
+            {
+                image: { image_id },
+            } = uprRes,
             email_hash = email
                 ? crypto
                       .createHash("md5")
                       .update(email.toLowerCase())
                       .digest("hex")
-                : uprRes.email_hash
+                : uprRes.user.email_hash
 
         // set its alt text
 
