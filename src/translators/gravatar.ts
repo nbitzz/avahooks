@@ -22,7 +22,7 @@ export default translator({
 
         if (!avatar) throw new Error("gravatar: failed to get avatar")
 
-        const Cookie = `gravatar=${encodeURIComponent(cookie)}; is-logged-in=1`
+        const Cookie = `gravatar=${cookie}; is-logged-in=1`
 
         // construct fd
         const fd = new FormData()
@@ -33,11 +33,15 @@ export default translator({
         // upload the avatar
 
         const uploadResult = await fetch(
-            "https://api.gravatar.com/v2/users/me/image",
+            "https://api.gravatar.com/v2/users/me/image?_locale=&source=web-app-editor",
             {
                 body: fd,
                 method: "POST",
-                headers: { Cookie },
+                headers: {
+                    Cookie,
+                    "Alt-Used": "api.gravatar.com",
+                    "X-GR-Nonce": crypto.randomUUID(),
+                },
             }
         )
 
@@ -60,11 +64,15 @@ export default translator({
 
         if (payload.altText) {
             let req = await fetch(
-                `https://api.gravatar.com/v2/users/me/image/${image_id}`,
+                `https://api.gravatar.com/v2/users/me/image/${image_id}?_locale=&source=web-app-editor`,
                 {
                     method: "POST",
                     body: JSON.stringify({ altText: payload.altText }),
-                    headers: { Cookie },
+                    headers: {
+                        Cookie,
+                        "Alt-Used": "api.gravatar.com",
+                        "X-GR-Nonce": crypto.randomUUID(),
+                    },
                 }
             )
             if (!req.ok)
@@ -74,11 +82,15 @@ export default translator({
         // set it as user avatar
 
         const setUserAvatarResult = await fetch(
-            `/v2/users/me/identity/${email_hash}`,
+            `https://api.gravatar.com/v2/users/me/identity/${email_hash}?_locale=&source=web-app-editor`,
             {
                 method: "POST",
                 body: JSON.stringify({ image_id }),
-                headers: { Cookie },
+                headers: {
+                    Cookie,
+                    "Alt-Used": "api.gravatar.com",
+                    "X-GR-Nonce": crypto.randomUUID(),
+                },
             }
         )
 
