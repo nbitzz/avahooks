@@ -14,6 +14,7 @@ All settings for endpoints are configured in query parameters.
 ### `/gravatar`
 
 - `cookie`: Your `gravatar` cookie.
+- `email` (optional): Email to set the profile picture for.
 
 ### `/misskey`
 

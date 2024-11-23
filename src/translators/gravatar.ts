@@ -1,11 +1,16 @@
 import { z } from "zod"
 import { translator } from "../lib/types.js"
 import downloadAvatarForPayload from "../lib/downloadAvatarForPayload.js"
+import crypto from "node:crypto"
 export default translator({
     query: z.object({
         cookie: z.string().describe("Your `gravatar` cookie."),
+        email: z
+            .string()
+            .optional()
+            .describe("Email to set the profile picture for."),
     }),
-    async execute(payload, { cookie }) {
+    async execute(payload, { cookie, email }) {
         // unsure regarding supported image formats;
         // just to play it safe, prefer png then jpeg
 
@@ -41,10 +46,15 @@ export default translator({
                 `gravatar: upload failed with ${uploadResult.status}`
             )
 
-        const {
-            email_hash,
-            image_id,
-        }: { email_hash: string; image_id: string } = await uploadResult.json()
+        const uprRes: { email_hash: string; image_id: string } =
+                await uploadResult.json(),
+            { image_id } = uprRes,
+            email_hash = email
+                ? crypto
+                      .createHash("md5")
+                      .update(email.toLowerCase())
+                      .digest("hex")
+                : uprRes.email_hash
 
         // set its alt text
 
