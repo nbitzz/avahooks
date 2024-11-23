@@ -11,6 +11,11 @@ All settings for endpoints are configured in query parameters.
 - `identifier`: Bluesky handle
 - `password`: Bluesky password - create an app password in settings
 
+### `/forgejo`
+
+- `instance`: Link to your Forgejo instance. Include protocol.
+- `apiKey`: Forgejo API key.
+
 ### `/gravatar`
 
 - `cookie`: Your `gravatar` cookie.
