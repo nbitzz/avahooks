@@ -29,9 +29,9 @@ export default translator({
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    image: `data:${avatar.type};base64,${Buffer.from(
-                        await avatar.arrayBuffer()
-                    ).toString("base64")}`,
+                    image: Buffer.from(await avatar.arrayBuffer()).toString(
+                        "base64"
+                    ),
                 }),
                 method: "POST",
             }
