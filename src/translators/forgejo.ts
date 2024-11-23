@@ -29,7 +29,7 @@ export default translator({
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    avatar: `data:${avatar.type};base64,${Buffer.from(
+                    image: `data:${avatar.type};base64,${Buffer.from(
                         await avatar.arrayBuffer()
                     ).toString("base64")}`,
                 }),
