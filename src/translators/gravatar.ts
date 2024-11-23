@@ -22,7 +22,33 @@ export default translator({
 
         if (!avatar) throw new Error("gravatar: failed to get avatar")
 
-        const Cookie = `gravatar=${cookie}; is-logged-in=1`
+        let headers: Record<string, string> = {
+            Cookie: `gravatar=${encodeURIComponent(cookie)}; is-logged-in=1`,
+            "Alt-Used": "api.gravatar.com",
+            Origin: "https://gravatar.com",
+            Referer: "https://gravatar.com/",
+        }
+
+        // get X-GR-Nonce
+
+        const nonceRequest = await fetch(
+            "https://gravatar.com/profile/avatars",
+            { headers }
+        )
+
+        if (!nonceRequest.ok)
+            throw new Error(
+                `gravatar: failed to get site to extract nonce with ${nonceRequest.status}`
+            )
+
+        // this is dumb, but idrgaf
+        const nonce = (await nonceRequest.text()).match(
+            /data-rest-api-nonce="(.*)"/
+        )?.[1]
+
+        if (!nonce) throw new Error(`gravatar: failed to scrape nonce`)
+
+        headers["X-GR-Nonce"] = nonce
 
         // construct fd
         const fd = new FormData()
@@ -37,11 +63,7 @@ export default translator({
             {
                 body: fd,
                 method: "POST",
-                headers: {
-                    Cookie,
-                    "Alt-Used": "api.gravatar.com",
-                    "X-GR-Nonce": crypto.randomUUID(),
-                },
+                headers,
             }
         )
 
@@ -68,11 +90,7 @@ export default translator({
                 {
                     method: "POST",
                     body: JSON.stringify({ altText: payload.altText }),
-                    headers: {
-                        Cookie,
-                        "Alt-Used": "api.gravatar.com",
-                        "X-GR-Nonce": crypto.randomUUID(),
-                    },
+                    headers,
                 }
             )
             if (!req.ok)
@@ -86,11 +104,7 @@ export default translator({
             {
                 method: "POST",
                 body: JSON.stringify({ image_id }),
-                headers: {
-                    Cookie,
-                    "Alt-Used": "api.gravatar.com",
-                    "X-GR-Nonce": crypto.randomUUID(),
-                },
+                headers,
             }
         )
 
